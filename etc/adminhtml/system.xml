@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="summa_theme">
+            <group id="email_order_progress">
+                <field id="pickup_status" translate="label" type="text" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Código de Estado para Pedido Retirado</label>
+                    <comment><![CDATA[Código de estado dividido por ",". Déjelo vacío para no utilizarlo. Cuando el pedido tiene uno de estos estados, este paso estará activo.]]></comment>
+                </field>
+                <field id="pickup_title" translate="label" type="text" sortOrder="160" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Título para Pedido Retirado</label>
+                    <comment><![CDATA[El título que se mostrará para el paso de "Pedido Retirado" en el progreso del pedido.]]></comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

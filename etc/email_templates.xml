@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="ceven_extrastepseop_order_pickedup_template" label="Pedido Recogido" file="order_pickedup.html" type="html" module="Ceven_ExtraStepsEOP" area="frontend"/>
+</config>

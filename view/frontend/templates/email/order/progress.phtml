@@ -1,0 +1,128 @@
+<?php
+/** @var \Ceven\ExtraStepsEOP\Block\Email\Order\Progress $block */
+?>
+<?php
+/** @var Magento\Sales\Model\Order $order */
+$order = $block->getOrder();
+$useDividers = $block->useDividers();
+?>
+<?php if ($block->isActive() && $order && !$order->isCanceled()):?>
+<tr>
+    <td>
+        <table class="order-progress">
+            <tr>
+                <?php $confirmTitle = $block->getConfirmTitle() ?: __('Order confirmed'); ?>
+                <td class="step first active <?= $useDividers? 'has-divider' : '';?>">
+                    <span class="step-icon">
+                        <img alt="<?= $confirmTitle;?>" title="<?= $confirmTitle;?>"
+                             src="<?= $block->getViewFileUrl('SummaTheme_Base::images/email/order-step-active.png');?>"/>
+                    </span>
+                    <p class="label"><?= $confirmTitle;?></p>
+                </td>
+
+                <?php if ($block->usePaymentStep()):?>
+                    <?php
+                    $paymentActive = $block->isPaymentStepActive();
+                    $paymentTitle = $block->getPaymentTitle()?: __('Payment accepted');
+                    ?>
+                    <?php if ($useDividers):?>
+                        <td class="divider-col <?= ($paymentActive)? 'active' : '';?>">
+                            <span class="divider"></span>
+                        </td>
+                    <?php endif;?>
+                    <td class="step <?= $useDividers? 'has-divider' : '';?> <?= ($paymentActive)? 'active' : '';?>">
+                        <span class="step-icon">
+                            <img alt="<?= $paymentTitle;?>" title="<?= $paymentTitle;?>"
+                                <?php if ($paymentActive):?>
+                                    src="<?= $block->getViewFileUrl('SummaTheme_Base::images/email/order-step-active.png');?>"
+                                <?php else:?>
+                                    src="<?= $block->getViewFileUrl('SummaTheme_Base::images/email/order-step.png');?>"
+                                <?php endif;?>
+                                />
+                        </span>
+                        <p class="label"><?= $paymentTitle;?></p>
+                    </td>
+                <?php endif;?>
+
+                <?php if ($block->useInvoiceStep()):?>
+                    <?php
+                    $invoiceActive = $block->isInvoiceStepActive();
+                    $invoiceTitle = $block->getInvoiceTitle()?: __('Order invoiced');
+                    ?>
+                    <?php if ($useDividers):?>
+                        <td class="divider-col <?= ($invoiceActive)? 'active' : '';?>">
+                            <span class="divider"></span>
+                        </td>
+                    <?php endif;?>
+                    <td class="step <?= $useDividers? 'has-divider' : '';?> <?= ($invoiceActive)? 'active' : '';?>">
+                        <span class="step-icon">
+                            <img alt="<?= $invoiceTitle;?>" title="<?= $invoiceTitle;?>"
+                                <?php if ($invoiceActive):?>
+                                    src="<?= $block->getViewFileUrl('SummaTheme_Base::images/email/order-step-active.png');?>"
+                                <?php else:?>
+                                    src="<?= $block->getViewFileUrl('SummaTheme_Base::images/email/order-step.png');?>"
+                                <?php endif;?>
+                                />
+                        </span>
+                        <p class="label"><?= $invoiceTitle;?></p>
+                    </td>
+                <?php endif;?>
+
+                <?php if ($block->useShipmentStep()):?>
+                    <?php
+                    $shipmentActive = $block->isShipmentStepActive();
+                    $shipmentTitle = $block->getShipmentTitle();
+                    if (!$shipmentTitle){
+                        if ($order->getShippingMethod() == 'instore_pickup'){
+                            $shipmentTitle = __('Order ready for Pickup');
+                        } else{
+                            $shipmentTitle = __('Order shipped');
+                        }
+                    } ?>
+                    <?php if ($useDividers):?>
+                        <td class="divider-col <?= ($shipmentActive)? 'active' : '';?>">
+                            <span class="divider"></span>
+                        </td>
+                    <?php endif;?>
+                    <td class="step <?= $useDividers? 'has-divider' : '';?> <?= ($shipmentActive)? 'active' : '';?>">
+                        <span class="step-icon">
+                            <img alt="<?= $shipmentTitle;?>" title="<?= $shipmentTitle;?>"
+                                <?php if ($shipmentActive):?>
+                                    src="<?= $block->getViewFileUrl('SummaTheme_Base::images/email/order-step-active.png');?>"
+                                <?php else:?>
+                                    src="<?= $block->getViewFileUrl('SummaTheme_Base::images/email/order-step.png');?>"
+                                <?php endif;?>
+                                />
+                        </span>
+                        <p class="label"><?= $shipmentTitle;?></p>
+                    </td>
+                <?php endif;?>
+
+                <?php if ($block->isOrderPickedUp()):?>
+                    <?php
+                    $pickupActive = $block->isOrderPickedUp();
+                    $pickupTitle = $block->getPickupTitle();
+                    ?>
+                    <?php if ($useDividers):?>
+                        <td class="divider-col <?= ($pickupActive)? 'active' : '';?>">
+                            <span class="divider"></span>
+                        </td>
+                    <?php endif;?>
+                    <td class="step last <?= $useDividers? 'has-divider' : '';?> <?= ($pickupActive)? 'active' : '';?>">
+                        <span class="step-icon">
+                            <img alt="<?= $pickupTitle;?>" title="<?= $pickupTitle;?>"
+                                <?php if ($pickupActive):?>
+                                    src="<?= $block->getViewFileUrl('SummaTheme_Base::images/email/order-step-active.png');?>"
+                                <?php else:?>
+                                    src="<?= $block->getViewFileUrl('SummaTheme_Base::images/email/order-step.png');?>"
+                                <?php endif;?>
+                                />
+                        </span>
+                        <p class="label"><?= $pickupTitle;?></p>
+                    </td>
+                <?php endif;?>
+            </tr>
+        </table>
+    </td>
+</tr>
+<?php endif;?>

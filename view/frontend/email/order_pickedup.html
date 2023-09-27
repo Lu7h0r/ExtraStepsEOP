@@ -1,0 +1,12 @@
+{{template config_path="design/email/header_template"}}
+<p class="greeting">{{trans "Hola %customer_name!" customer_name=$order.getCustomerName()}}</p>
+<p>
+    <strong>¡Tu pedido está listo para ser recogido!</strong>
+</p>
+<p>
+    Número de Pedido: {{trans '<span class="no-link">#%increment_id</span>' increment_id=$order.increment_id |raw}}
+</p>
+<p>
+    Recogido en: NOMBRE DEL PUNTO DE RETIRO
+</p>
+{{template config_path="design/email/footer_template"}}
